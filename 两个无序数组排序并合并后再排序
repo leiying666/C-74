@@ -1,0 +1,42 @@
+#include<stdlib.h>
+#include<stdio.h>
+void Px(int a[],int c)
+{
+    for (int i = 1; i < c; i++)
+    {
+        int j = i - 1;
+        int tmp = a[i];
+        while (j >= 0 && a[j] > tmp)
+        {
+            a[j + 1] = a[j];
+            j--;
+        }
+        a[j+1] = tmp;
+    }
+}
+int main() 
+{
+    int a1[] = { 3,2,1 };
+    int a2[] = { 8,5,4 };
+    int sz1 = sizeof(a1) / sizeof(a1[0]);
+    int sz2 = sizeof(a2) / sizeof(a2[0]);
+    Px(a1,sz1);
+    Px(a2,sz2);
+    int* a3 = malloc(sizeof(a1) + sizeof(a2));
+    for (int j = 0; j < sz1; j++)
+    {
+        a3[j] = a1[j];
+    }
+    for (int j = sz1; j < sz2+sz1; j++)
+    {
+        a3[j] = a2[j-sz1];
+    }
+    Px(a3, sz1 + sz2 );
+    for (int i = 0; i <sz1 + sz2; i++)
+    {
+        printf("%d ", a3[i]);
+    }
+    free(a3);
+    a3 = NULL;
+    return 0;
+}
